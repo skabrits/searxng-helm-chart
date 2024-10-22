@@ -11,7 +11,16 @@ volumeSpec:
   secret:
     secretName: {{ include "common.names.fullname" . }}-config
 {{- end -}}
-{{- $_ := set .Values.persistence "searxng-config" (include "searxng.settingsVolume" . | fromYaml) -}}
+{{- define "searxng.limiterVolume" -}}
+enabled: "true"
+mountPath: "/etc/searxng/limiter.toml"
+subPath: "limiter.toml"
+type: "custom"
+volumeSpec:
+  secret:
+    secretName: {{ include "common.names.fullname" . }}-config
+{{- end -}}
+{{- $_ := set .Values.persistence "searxng-limiter-config" (include "searxng.limiterVolume" . | fromYaml) -}}
 
 {{/* Render the templates */}}
 {{ include "common.all" . }}
