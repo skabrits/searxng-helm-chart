@@ -20,6 +20,7 @@ volumeSpec:
   secret:
     secretName: {{ include "common.names.fullname" . }}-config
 {{- end -}}
+{{- $_ := set .Values.persistence "searxng-config" (include "searxng.settingsVolume" . | fromYaml) -}}
 {{- $_ := set .Values.persistence "searxng-limiter-config" (include "searxng.limiterVolume" . | fromYaml) -}}
 
 {{/* Render the templates */}}
