@@ -10,5 +10,4 @@ data:
   settings.yml: |-
 {{ toYaml .Values.searxng.config | b64enc | indent 4 }}
   limiter.toml: |-
-    [botdetection.ip_limit]
-{{ toYaml .Values.searxng.limiter | b64enc | indent 4 }}
+{{- .Values.searxng.limiter | b64enc | indent 4 }}
